@@ -17,6 +17,17 @@ class Topology:
             output += '\n'
         return output
 
+    def __add__(self, other):
+        if other.rows != self.rows or other.cols != self.cols or self.has_neighbor_order != other.has_neighbor_order:
+            raise ValueError('Topologies have different row/column sizes.')
+
+        def combined_topology_function(rows, cols):
+            self_adj_dict = self.topology_function(rows, cols)[1]
+            other_adj_dict = other.topology_function(rows, cols)[1]
+            return self.has_neighbor_order, {cell: self_adj_dict[cell].union(other_adj_dict[cell]) for cell in other_adj_dict}
+
+        return Topology(self.rows, self.cols, combined_topology_function)
+
     def apply_rule(self, rule):
         self.cell_values = rule(self.adj_dict, self.cell_values)
 
