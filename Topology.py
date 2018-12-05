@@ -12,14 +12,20 @@ class Topology:
         output = ''
         for i in range(self.rows):
             for j in range(self.cols):
-                output += str(self.cell_values[i * self.cols + j])
-                output += ' '
+                value = self.cell_values[i * self.cols + j]
+                if value == 0:
+                    output += '\x1b[0;37;47m' + str(value) + ' \x1b[0m'
+                else:
+                    output += '\x1b[0;34;44m' + str(value) + ' \x1b[0m'
+                # output += ' '
             output += '\n'
         return output
 
     def __add__(self, other):
-        if other.rows != self.rows or other.cols != self.cols or self.has_neighbor_order != other.has_neighbor_order:
+        if other.rows != self.rows or other.cols != self.cols:
             raise ValueError('Topologies have different row/column sizes.')
+        if self.has_neighbor_order or other.has_neighbor_order:
+            raise ValueError('Topologies with neighbor order cannot be added.')
 
         def combined_topology_function(rows, cols):
             self_adj_dict = self.topology_function(rows, cols)[1]
