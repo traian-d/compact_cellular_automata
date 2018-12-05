@@ -98,12 +98,12 @@ def join_corners(n_rows, n_cols):
     return False, adj_dict
 
 
-def make_eight_neighbor_grid(n_rows, n_cols):
+def eight_neighbor_grid(n_rows, n_cols):
     return Topology(n_rows, n_cols, rectangular_four_neighbors)\
            + Topology(n_rows, n_cols, rectangular_four_diagonal_neighbors)
 
 
-def make_eight_neighbor_torus(n_rows, n_cols):
+def eight_neighbor_torus(n_rows, n_cols):
     return Topology(n_rows, n_cols, rectangular_four_neighbors)\
         + Topology(n_rows, n_cols, rectangular_four_diagonal_neighbors)\
         + Topology(n_rows, n_cols, top_bottom_cylinder) + Topology(n_rows, n_cols, top_bottom_diag)\
