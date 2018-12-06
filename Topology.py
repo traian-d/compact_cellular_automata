@@ -17,7 +17,8 @@ class Topology:
                     output += '\x1b[0;37;47m' + str(value) + ' \x1b[0m'
                 else:
                     output += '\x1b[0;34;44m' + str(value) + ' \x1b[0m'
-            output += '\n'
+            if self.rows > 1:
+                output += '\n'
         return output
 
     def __add__(self, other):

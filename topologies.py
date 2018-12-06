@@ -109,3 +109,15 @@ def eight_neighbor_torus(n_rows, n_cols):
         + Topology(n_rows, n_cols, top_bottom_cylinder) + Topology(n_rows, n_cols, top_bottom_diag)\
         + Topology(n_rows, n_cols, left_right_cylinder) + Topology(n_rows, n_cols, left_right_diag)\
         + Topology(n_rows, n_cols, join_corners)
+
+
+def two_neighbors_ordered(n_rows, n_cols):
+    adj_dict = {}
+    for i in range(0, n_cols):
+        if i not in adj_dict:
+            adj_dict[i] = []
+        if i > 0:
+            adj_dict[i].append(i - 1)
+        if i < n_cols - 1:
+            adj_dict[i].append(i + 1)
+    return True, adj_dict
