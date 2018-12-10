@@ -24,25 +24,38 @@ def print_states(game, sleep=0.02, clear=True):
             os.system('clear')
 
 
-def np_plot(game):
+def np_plot(game, sleep=0.02):
     import matplotlib.pyplot as plt
-    from matplotlib.animation import FuncAnimation
-
     fig, ax = plt.subplots()
-
-    for i in range(len(game.states)):
+    states, n_rows = game.pad_states()
+    for i in range(len(states)):
         ax.cla()
-        ax.imshow(np.reshape(game.states[i], (game.topology.n_rows, game.topology.n_cols)))
+        ax.imshow(np.reshape(states[i], (n_rows, game.topology.n_cols)))
         ax.set_title("frame {}".format(i))
-        plt.pause(0.1)
-
-    # anim = FuncAnimation(fig, update, frames=np.arange(0, len(states)), interval=200)
-    # anim.save('line.gif', dpi=80, writer='imagemagick')
+        plt.pause(sleep)
 
 
-# run_game(top.eight_neighbor_torus, rules.conway_game_of_life, sp.conway_glider, 50, 50, 1, 500)
-acorn_game = run_game(top.eight_neighbor_torus(50, 50), rules.conway_game_of_life, sp.acorn, 501, iterations=200)
-# print_states(acorn_game)
-np_plot(acorn_game)
-# run_game(Topology(1, 241, top.two_neighbors_ordered), rules.rule_30, sp.one_dot, 1, 241, 121, 120, False)
+def save_gif(game, file_path, dpi=80, sleep=50):
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots()
+    states, n_rows = game.pad_states()
 
+    def update(i):
+        return ax.imshow(np.reshape(states[i], (n_rows, game.topology.n_cols)))
+
+    from matplotlib.animation import FuncAnimation
+    anim = FuncAnimation(fig, update, frames=np.arange(0, len(states)), interval=sleep)
+    anim.save(file_path, dpi=dpi, writer='imagemagick')
+
+
+# acorn_game = run_game(top.eight_neighbor_torus(50, 50), rules.conway_game_of_life, sp.acorn, 1261, iterations=100)
+# save_gif(acorn_game, 'acorn_game.gif', 100)
+
+# glider_torus = run_game(top.eight_neighbor_torus(25, 25), rules.conway_game_of_life, sp.conway_glider, 2, iterations=100)
+# save_gif(glider_torus, 'glider_torus.gif', 100)
+
+# glider_simple = run_game(top.eight_neighbor_grid(25, 25), rules.conway_game_of_life, sp.conway_glider, 2, iterations=100)
+# save_gif(glider_simple, 'glider_simple.gif', 100)
+
+rule30 = run_game(top.single_row(200), rules.rule_30, sp.one_dot, 101, iterations=100)
+save_gif(rule30, 'rule30.gif', dpi=80, sleep=30)

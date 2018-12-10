@@ -20,4 +20,3 @@ class Topology:
             return self.has_neighbor_order, {cell: self_adj_dict[cell].union(other_adj_dict[cell]) for cell in other_adj_dict}
 
         return Topology(self.n_rows, self.n_cols, combined_topology_function)
-
