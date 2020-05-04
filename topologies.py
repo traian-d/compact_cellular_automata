@@ -18,3 +18,8 @@ def eight_neighbor_torus(n_rows, n_cols):
 
 def single_row(n_cols):
     return Topology(1, n_cols, two_neighbors_ordered)
+
+
+def four_neighbor_torus(n_rows, n_cols):
+    return Topology(n_rows, n_cols, rectangular_four_neighbors)\
+        + Topology(n_rows, n_cols, top_bottom_cylinder) + Topology(n_rows, n_cols, left_right_cylinder)

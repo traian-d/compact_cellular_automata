@@ -3,7 +3,6 @@ class Topology:
     def __init__(self, n_rows, n_cols, topology_function):
         self.n_rows = n_rows
         self.n_cols = n_cols
-        self.states = [[0] * (n_rows * n_cols)]
         self.topology_function = topology_function
 
         self.has_neighbor_order, self.adj_dict = topology_function(n_rows, n_cols)

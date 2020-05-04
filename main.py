@@ -48,8 +48,13 @@ def save_gif(game, file_path, dpi=80, sleep=50):
     anim.save(file_path, dpi=dpi, writer='imagemagick')
 
 
-# acorn_game = run_game(top.eight_neighbor_torus(50, 50), rules.conway_game_of_life, sp.acorn, 1261, iterations=100)
+# acorn_game = run_game(top.eight_neighbor_torus(50, 50), rules.conway_game_of_life, sp.acorn, 1261, iterations=250)
+# np_plot(acorn_game, sleep=0.01)
 # save_gif(acorn_game, 'acorn_game.gif', 100)
+
+ibm_game = run_game(top.four_neighbor_torus(11, 11), rules.ibm_may2020, sp.one_dot, 60, iterations=250)
+np_plot(ibm_game, sleep=1.0)
+
 
 # glider_torus = run_game(top.eight_neighbor_torus(25, 25), rules.conway_game_of_life, sp.conway_glider, 2, iterations=100)
 # save_gif(glider_torus, 'glider_torus.gif', 100)
@@ -57,5 +62,9 @@ def save_gif(game, file_path, dpi=80, sleep=50):
 # glider_simple = run_game(top.eight_neighbor_grid(25, 25), rules.conway_game_of_life, sp.conway_glider, 2, iterations=100)
 # save_gif(glider_simple, 'glider_simple.gif', 100)
 
-rule30 = run_game(top.single_row(200), rules.rule_30, sp.one_dot, 101, iterations=100)
-save_gif(rule30, 'rule30.gif', dpi=80, sleep=30)
+# rule30 = run_game(top.single_row(200), rules.rule_30, sp.one_dot, 101, iterations=100)
+# save_gif(rule30, 'rule30.gif', dpi=80, sleep=30)
+
+# sierpinski_triangle = run_game(top.single_row(200), rules.sierpinski_triangle, sp.one_dot, 101, iterations=100)
+# np_plot(sierpinski_triangle)
+# save_gif(sierpinski_triangle, 'sierpinski_triangle.gif', dpi=80, sleep=30)
